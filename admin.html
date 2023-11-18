@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Additional styles or custom CSS can be added here -->
+    <style>
+        /* Add your custom CSS here */
+        .sidebar-hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+
+<body class="bg-gray-100 font-sans">
+    <!-- Sidebar -->
+    <div class="flex">
+        <!-- Sidebar (left part) -->
+        <aside id="sidebar" class="bg-gray-800 text-gray-200 w-64 flex-shrink-0 sidebar-hidden">
+            <!-- Sidebar content -->
+            <div class="py-4 px-6">
+                <h2 class="text-2xl font-bold text-white">Admin Panel</h2>
+                <!-- Navigation links -->
+                <ul class="mt-6">
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                            <!-- Dashboard Icon -->
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                            <!-- Customers Icon -->
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6a2 2 0 100-4 2 2 0 000 4zM5 18a2 2 0 002 2h10a2 2 0 002-2M5 18v-6a2 2 0 012-2h10a2 2 0 012 2v6M15 14a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>                            
+                            Customers
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                            <!-- Rooms Icon -->
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>                            
+                            Rooms
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                            <!-- Rates Icon -->
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>                            
+                            Rates
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                            <!-- Bookings Icon -->
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10l5 5L17 9"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10v4a2 2 0 01-2 2H5m14-4h-4a2 2 0 00-2 2v8"></path>
+                            </svg>                            
+                            Bookings
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                            <!-- Room Bookings Icon -->
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10l5 5L17 9"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10v4a2 2 0 01-2 2H5m14-4h-4a2 2 0 00-2 2v8"></path>
+                            </svg>                            
+                            Room Bookings
+                        </a>
+                    </li>
+                    <!-- Add more links as needed -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 min-w-0">
+            <!-- Top Navbar -->
+            <header class="bg-white p-4 shadow-md">
+                <!-- Navbar content -->
+                <div class="flex justify-between items-center">
+                    <button id="toggleSidebar" class="text-gray-600 focus:outline-none">
+                        <!-- Menu Icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                    <h1 class="text-lg font-semibold">Dashboard</h1>
+                    <div>
+                        <!-- Admin profile or settings -->
+                        <!-- Add your profile icon or settings here -->
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <section class="p-6">
+                <!-- Content goes here -->
+                <p>Welcome to the admin panel!</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Additional scripts or custom JavaScript can be added here -->
+    <script>
+        const toggleButton = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+    
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-hidden');
+        });
+    </script>
+</body>
+
+</html>
