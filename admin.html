@@ -28,9 +28,9 @@
                 <!-- Navigation links -->
                 <ul class="mt-6">
                     <li class="mb-2">
-                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700" data-section-id="dashboard">
                             <!-- Dashboard Icon -->
-                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 6h16M4 12h16m-7 6h7"></path>
                             </svg>
@@ -38,7 +38,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="#customersSection" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700" data-section-id="customers">
                             <!-- Customers Icon -->
                             <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6a2 2 0 100-4 2 2 0 000 4zM5 18a2 2 0 002 2h10a2 2 0 002-2M5 18v-6a2 2 0 012-2h10a2 2 0 012 2v6M15 14a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700" data-section-id="rooms">
                             <!-- Rooms Icon -->
                             <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path>
@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700" data-section-id="rates">
                             <!-- Rates Icon -->
                             <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700" data-section-id="bookings">
                             <!-- Bookings Icon -->
                             <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10l5 5L17 9"></path>
@@ -76,7 +76,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700" data-section-id="roomBookings">
                             <!-- Room Bookings Icon -->
                             <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10l5 5L17 9"></path>
@@ -103,7 +103,7 @@
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
-                    <h1 class="text-lg font-semibold">Dashboard</h1>
+                    <h1 class="text-lg font-semibold">Admin Panel</h1>
                     <div>
                         <!-- Admin profile or settings -->
                         <!-- Add your profile icon or settings here -->
@@ -112,22 +112,366 @@
             </header>
 
             <!-- Main Content Area -->
-            <section class="p-6">
+            <section class="p-6" id="dashboardSection">
+                <h2 class="text-xl font-semibold mb-4">Dashboard</h2>
                 <!-- Content goes here -->
                 <p>Welcome to the admin panel!</p>
+                <!-- You can add more content or elements here -->
             </section>
+
+            <!-- Customers Section -->
+            <section class="p-6 hidden" id="customersSection">
+                <h2 class="text-xl font-semibold mb-4">Customers</h2>
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="border border-gray-300 px-4 py-2">ID</th>
+                            <th class="border border-gray-300 px-4 py-2">Name</th>
+                            <th class="border border-gray-300 px-4 py-2">Email</th>
+                            <th class="border border-gray-300 px-4 py-2">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">1</td>
+                            <td class="border border-gray-300 px-4 py-2">John Doe</td>
+                            <td class="border border-gray-300 px-4 py-2">john@example.com</td>
+                            <td class="border border-gray-300 px-4 py-2">123-456-7890</td>
+                        </tr>
+                        <!-- Additional rows can be added with more fake data -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Rooms Section -->
+            <section class="p-6 hidden" id="roomsSection">
+                <h2 class="text-xl font-semibold mb-4">Rooms</h2>
+                <table class="w-full border-collapse border border-gray-300">
+                    <!-- Similar structure as Customers section -->
+                </table>
+            </section>
+
+            <!-- Rates Section -->
+            <section class="p-6 hidden" id="ratesSection">
+                <h2 class="text-xl font-semibold mb-4">Rates</h2>
+                <table class="w-full border-collapse border border-gray-300">
+                    <!-- Similar structure as Customers section -->
+                </table>
+            </section>
+
+            <!-- Bookings Section -->
+            <section class="p-6 hidden" id="bookingsSection">
+                <h2 class="text-xl font-semibold mb-4">Bookings</h2>
+                <table class="w-full border-collapse border border-gray-300">
+                    <!-- Similar structure as Customers section -->
+                </table>
+            </section>
+
+            <!-- Room Bookings Section -->
+            <section class="p-6 hidden" id="roomBookingsSection">
+                <h2 class="text-xl font-semibold mb-4">Room Bookings</h2>
+                <table class="w-full border-collapse border border-gray-300">
+                    <!-- Similar structure as Customers section -->
+                </table>
+            </section>
+
         </main>
     </div>
 
-    <!-- Additional scripts or custom JavaScript can be added here -->
+    <!-- ... (your existing HTML code) ... -->
+
     <script>
         const toggleButton = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('sidebar');
-    
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('sidebar-hidden');
+    const sidebar = document.getElementById('sidebar');
+    const sections = {
+        'dashboard': document.getElementById('dashboardSection'),
+        'customers': document.getElementById('customersSection'),
+        'rooms': document.getElementById('roomsSection'),
+        'rates': document.getElementById('ratesSection'),
+        'bookings': document.getElementById('bookingsSection'),
+        'roomBookings': document.getElementById('roomBookingsSection')
+    };
+
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-hidden');
+    });
+
+    // Function to hide all sections
+    function hideAllSections() {
+        for (const section in sections) {
+            sections[section].classList.add('hidden');
+        }
+    }
+
+    // Function to show a specific section
+    function showSection(sectionId) {
+        hideAllSections();
+        const section = sections[sectionId];
+        if (section) {
+            section.classList.remove('hidden');
+        } else {
+            console.error(`Section with ID ${sectionId} not found.`);
+        }
+    }
+
+    // Add click event listeners to sidebar links
+    document.querySelectorAll('#sidebar a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const sectionId = event.target.getAttribute('data-section-id');
+            if (sections.hasOwnProperty(sectionId)) {
+                showSection(sectionId);
+            }
         });
+    });
+
+    // Show the default section (Dashboard) on page load
+    showSection('dashboard');
+
     </script>
+
+    <!-- Add this script after the existing JavaScript -->
+
+<script>
+    // Function to fetch customers from the backend
+    function fetchCustomers() {
+        fetch('http://localhost:3000/api/customers/')
+            .then(response => response.json())
+            .then(data => {
+                const customersSection = document.getElementById('customersSection');
+                const customersTable = customersSection.querySelector('table tbody');
+
+                // Clear existing rows
+                customersTable.innerHTML = '';
+
+                // Iterate through the data and create table rows
+                data.forEach(customer => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="border border-gray-300 px-4 py-2">${customer.c_no}</td>
+                        <td class="border border-gray-300 px-4 py-2">${customer.c_name}</td>
+                        <td class="border border-gray-300 px-4 py-2">${customer.c_email}</td>
+                        <td class="border border-gray-300 px-4 py-2">${customer.c_cardno}</td>
+                    `;
+                    customersTable.appendChild(row);
+                });
+
+                // Show the customers section after populating data
+                showSection('customersSection');
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    // Call the function to fetch customers when the page loads
+    window.addEventListener('load', fetchCustomers);
+</script>
+
+
+<!-- Add this script after the previous JavaScript -->
+
+<script>
+    function mapRoomType(type) {
+    switch (type) {
+        case 'sup_d':
+            return 'Superior Double';
+        case 'std_d':
+            return 'Standard Double';
+        case 'std_t':
+            return 'Standard Single';
+        case 'sup_t':
+            return 'Superior Single';
+        default:
+            return type; // Return the original type if not matched
+    }
+}
+
+function mapAvailability(status) {
+    switch (status) {
+        case 'A':
+            return 'Available';
+        case 'C':
+            return 'Check-out';
+        case 'X':
+            return 'Unavailable';
+        default:
+            return 'Unknown';
+    }
+}
+function fetchRooms() {
+    fetch('http://localhost:3000/api/rooms/')
+        .then((response) => response.json())
+        .then((data) => {
+            const roomsTable = document.querySelector('#roomsSection table');
+            if (roomsTable) {
+                // Clear existing table rows
+                roomsTable.innerHTML = '';
+
+                // Create table headers
+                const headerRow = roomsTable.insertRow();
+                const headers = ['Room Number', 'Room Type', 'Availability'];
+                headers.forEach((header) => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+
+                // Loop through the fetched room data and create rows
+                data.forEach((room) => {
+                    const row = roomsTable.insertRow();
+                    row.innerHTML = `
+                        <td class="border border-gray-300 px-4 py-2">${room.r_no}</td>
+                        <td class="border border-gray-300 px-4 py-2">${mapRoomType(room.r_class)}</td>
+                        <td class="border border-gray-300 px-4 py-2">${mapAvailability(room.r_status)}</td>
+                    `;
+                });
+            } else {
+                console.error('Rooms table not found.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching room data:', error);
+        });
+}
+
+    // Call the function to fetch rooms when the page loads
+    window.addEventListener('load', fetchRooms);
+</script>
+
+<!--show bookings-->
+<script>
+function fetchBookings() {
+    fetch('http://localhost:3000/api/bookings/')
+        .then((response) => response.json())
+        .then((data) => {
+            const bookingsTable = document.querySelector('#bookingsSection table');
+
+            // Clear any existing content in the table
+            bookingsTable.innerHTML = '';
+
+            // Create table headers
+            const headerRow = bookingsTable.insertRow();
+            const headers = ['Booking Ref', 'Customer No', 'Booking Cost', 'Booking Outstanding', 'Booking Notes'];
+            headers.forEach((headerText) => {
+                const th = document.createElement('th');
+                th.textContent = headerText;
+                headerRow.appendChild(th);
+            });
+
+            data.forEach((booking) => {
+                const row = bookingsTable.insertRow();
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2">${booking.b_ref}</td>
+                    <td class="border border-gray-300 px-4 py-2">${booking.c_no}</td>
+                    <td class="border border-gray-300 px-4 py-2">${booking.b_cost}</td>
+                    <td class="border border-gray-300 px-4 py-2">${booking.b_outstanding}</td>
+                    <td class="border border-gray-300 px-4 py-2">${booking.b_notes}</td>
+                `;
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+// Call the function to fetch and display bookings when the page loads
+fetchBookings();
+
+</script>
+
+<!--Room bookings-->
+<script>
+    function fetchRoomBookings() {
+    fetch('http://localhost:3000/api/roombookings/')
+        .then((response) => response.json())
+        .then((data) => {
+            const roomBookingsTable = document.querySelector('#roomBookingsSection table');
+
+            // Clear any existing content in the table
+            roomBookingsTable.innerHTML = '';
+
+            // Create table headers
+            const headerRow = roomBookingsTable.insertRow();
+            const headers = ['Room No', 'Booking Ref', 'Check-in', 'Check-out'];
+            headers.forEach((headerText) => {
+                const th = document.createElement('th');
+                th.textContent = headerText;
+                headerRow.appendChild(th);
+            });
+
+            data.forEach((roomBooking) => {
+                const row = roomBookingsTable.insertRow();
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2">${roomBooking.r_no}</td>
+                    <td class="border border-gray-300 px-4 py-2">${roomBooking.b_ref}</td>
+                    <td class="border border-gray-300 px-4 py-2">${new Date(roomBooking.checkin).toLocaleDateString()}</td>
+                    <td class="border border-gray-300 px-4 py-2">${new Date(roomBooking.checkout).toLocaleDateString()}</td>
+                `;
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+// Call the function to fetch and display room bookings when the page loads
+fetchRoomBookings();
+</script>
+
+<!--Rom rates-->
+<script>
+function fetchRates() {
+    fetch('http://localhost:3000/api/rates/')
+        .then((response) => response.json())
+        .then((data) => {
+            const ratesTable = document.querySelector('#ratesSection table');
+
+            // Clear any existing content in the table
+            ratesTable.innerHTML = '';
+
+            // Create table headers
+            const headerRow = ratesTable.insertRow();
+            const headers = ['Room Class', 'Price (per night, USD)'];
+            headers.forEach((headerText) => {
+                const th = document.createElement('th');
+                th.textContent = headerText;
+                headerRow.appendChild(th);
+            });
+
+            data.forEach((rate) => {
+                const row = ratesTable.insertRow();
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2">${getClassDisplayName(rate.r_class)}</td>
+                    <td class="border border-gray-300 px-4 py-2">${rate.price}</td>
+                `;
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+// Function to get the display name for room class
+function getClassDisplayName(className) {
+    switch (className) {
+        case 'std_t':
+            return 'Standard Single';
+        case 'std_d':
+            return 'Standard Double';
+        case 'sup_t':
+            return 'Superior Single';
+        case 'sup_d':
+            return 'Superior Double';
+        default:
+            return className; // If none matches, return the original class name
+    }
+}
+
+// Call the function to fetch and display rates when the page loads
+fetchRates();
+
+</script>
 </body>
 
 </html>

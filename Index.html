@@ -7,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Include Slick's CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+<!-- Example of including flatpickr from CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+
 
   <!-- Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -139,6 +145,18 @@
     </label>
     <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-h-40 overflow-y-auto text-sm" id="availableRoomsDropdown"></select>
   </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="checkin">
+      Check-In
+    </label>
+    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkin" type="text" placeholder="Select check-in date">
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="checkout">
+      Check-Out
+    </label>
+    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkout" type="text" placeholder="Select check-out date">
+  </div>  
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
         Phone Number
@@ -206,6 +224,7 @@
 
 <!-- Include Slick's JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <!-- Initialize Slick -->
 <!-- Initialize Slick -->
@@ -352,6 +371,22 @@ document.addEventListener("DOMContentLoaded", function() {
   showFormStandard.addEventListener('click', showBookingForm);
   showFormSuperior.addEventListener('click', showBookingForm);
   cancelBooking.addEventListener('click', hideBookingForm);
+});
+
+</script>
+
+<script>
+  // Initialize date pickers for check-in and check-out
+flatpickr("#checkin", {
+  dateFormat: "Y-m-d",
+  minDate: "today",
+  onChange: function(selectedDates, dateStr) {
+    // Set the minimum date for check-out as the selected check-in date
+    flatpickr("#checkout", {
+      dateFormat: "Y-m-d",
+      minDate: dateStr,
+    });
+  }
 });
 
 </script>

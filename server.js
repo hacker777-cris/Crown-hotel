@@ -93,6 +93,100 @@ app.get('/api/roombookings', (req, res) => {
 });
 
 
+// Define API endpoint to insert a new booking record
+app.post('/api/bookings', (req, res) => {
+    const { b_ref, c_no, b_cost, b_outstanding, b_notes } = req.body;
+
+    pool.query(
+        `INSERT INTO hotelbooking.booking (b_ref, c_no, b_cost, b_outstanding, b_notes) 
+        VALUES ($1, $2, $3, $4, $5)`,
+        [b_ref, c_no, b_cost, b_outstanding, b_notes],
+        (err, result) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                res.status(500).json({ error: 'Internal Server Error' });
+            } else {
+                res.json({ message: 'New booking record inserted successfully' });
+            }
+        }
+    );
+});
+
+
+//Make bookings
+
+// ... (other code remains unchanged)
+
+// Endpoint to create a new booking record
+app.post('/api/bookings', (req, res) => {
+    const { b_ref, c_no, b_cost, b_outstanding, b_notes } = req.body;
+
+    // Validate incoming data
+    if (!b_ref || !c_no || !b_cost || !b_outstanding) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Validate the format of numerical data
+    if (isNaN(b_ref) || isNaN(c_no) || isNaN(b_cost) || isNaN(b_outstanding)) {
+        return res.status(400).json({ error: 'Invalid data format for numeric fields' });
+    }
+
+    // Check other validations if necessary (e.g., existence of customer, format of notes)
+
+     // Check if the customer exists
+     pool.query('SELECT * FROM hotelbooking.customer WHERE c_no = $1', [c_no], (err, result) => {
+        if (err) {
+            console.error('Error checking customer:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (result.rows.length === 0) {
+                // If customer doesn't exist, create a new customer
+                pool.query(
+                    `INSERT INTO hotelbooking.customer (c_no, c_name, c_email, c_address, c_cardtype, c_cardexp, c_cardno) 
+                    VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+                    [c_no, req.body.c_name, req.body.c_email, req.body.c_address, req.body.c_cardtype, req.body.c_cardexp, req.body.c_cardno],
+                    (err, result) => {
+                        if (err) {
+                            console.error('Error creating new customer:', err);
+                            return res.status(500).json({ error: 'Internal Server Error' });
+                        }
+                    }
+                );
+            }
+            
+            // Insert the room booking record
+            pool.query(
+                `INSERT INTO hotelbooking.roombooking (r_no, b_ref, checkin, checkout) 
+                VALUES ($1, $2, $3, $4)`,
+                [r_no, b_ref, checkin, checkout],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error executing query:', err);
+                        return res.status(500).json({ error: 'Internal Server Error' });
+                    } else {
+                        return res.json({ message: 'New room booking created successfully' });
+                    }
+                }
+            )
+            // Proceed to insert the booking record
+            pool.query(
+                `INSERT INTO hotelbooking.booking (b_ref, c_no, b_cost, b_outstanding, b_notes) 
+                VALUES ($1, $2, $3, $4, $5)`,
+                [b_ref, c_no, b_cost, b_outstanding, b_notes],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error executing query:', err);
+                        return res.status(500).json({ error: 'Internal Server Error' });
+                    } else {
+                        return res.json({ message: 'New booking record inserted successfully' });
+                    }
+                }
+            );
+        }
+    });
+});
+
+
 
 
 
