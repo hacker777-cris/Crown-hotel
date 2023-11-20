@@ -6,6 +6,7 @@ const app = express();
 
 // Enable CORS for all routes
 app.use(cors());
+app.use(express.json()); // Middleware to parse JSON
 
 // Create a PostgreSQL pool
 const pool = new Pool({
@@ -94,101 +95,175 @@ app.get('/api/roombookings', (req, res) => {
 
 
 // Define API endpoint to insert a new booking record
-app.post('/api/bookings', (req, res) => {
-    const { b_ref, c_no, b_cost, b_outstanding, b_notes } = req.body;
+app.post('/api/bookRoom', (req, res) => {
+    const { email, r_no, checkIn, checkOut, cost, outstanding, notes, customerData } = req.body;
 
-    pool.query(
-        `INSERT INTO hotelbooking.booking (b_ref, c_no, b_cost, b_outstanding, b_notes) 
-        VALUES ($1, $2, $3, $4, $5)`,
-        [b_ref, c_no, b_cost, b_outstanding, b_notes],
-        (err, result) => {
+    // Check if the customer exists based on the provided email
+    pool.query('SELECT * FROM hotelbooking.customer WHERE c_email = $1', [email], (err, result) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (result.rows.length > 0) {
+                // Customer exists, proceed with booking
+                const existingCustomer = result.rows[0];
+                createBooking(existingCustomer.c_no);
+            } else {
+                // Customer does not exist, generate new c_no
+                pool.query('SELECT MAX(c_no) FROM hotelbooking.customer', (err, maxResult) => {
+                    if (err) {
+                        console.error('Error executing query:', err);
+                        res.status(500).json({ error: 'Internal Server Error' });
+                    } else {
+                        const maxCNo = maxResult.rows[0].max || 0; // Retrieve the maximum c_no
+                        const newCNo = maxCNo + 1; // Generate the new c_no
+
+                        // Insert the new customer with the generated c_no
+                        pool.query(
+                            'INSERT INTO hotelbooking.customer (c_no, c_name, c_email, c_address, c_cardtype, c_cardexp, c_cardno) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+                            [newCNo, customerData.name, email, customerData.address, customerData.cardType, customerData.cardExp, customerData.cardNo],
+                            (err, newCustomerResult) => {
+                                if (err) {
+                                    console.error('Error creating new customer:', err);
+                                    res.status(500).json({ error: 'Internal Server Error' });
+                                } else {
+                                    createBooking(newCNo);
+                                }
+                            }
+                        );
+                    }
+                });
+            }
+        }
+    });
+
+
+    // Function to create a new booking with generated b_ref
+    function createBooking(customerId) {
+        // Generate new b_ref
+        pool.query('SELECT MAX(b_ref) FROM hotelbooking.booking', (err, maxBRefResult) => {
             if (err) {
                 console.error('Error executing query:', err);
                 res.status(500).json({ error: 'Internal Server Error' });
             } else {
-                res.json({ message: 'New booking record inserted successfully' });
-            }
-        }
-    );
-});
+                const maxBRef = maxBRefResult.rows[0].max || 0; // Retrieve the maximum b_ref
+                const newBRef = maxBRef + 1; // Generate the new b_ref
 
-
-//Make bookings
-
-// ... (other code remains unchanged)
-
-// Endpoint to create a new booking record
-app.post('/api/bookings', (req, res) => {
-    const { b_ref, c_no, b_cost, b_outstanding, b_notes } = req.body;
-
-    // Validate incoming data
-    if (!b_ref || !c_no || !b_cost || !b_outstanding) {
-        return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    // Validate the format of numerical data
-    if (isNaN(b_ref) || isNaN(c_no) || isNaN(b_cost) || isNaN(b_outstanding)) {
-        return res.status(400).json({ error: 'Invalid data format for numeric fields' });
-    }
-
-    // Check other validations if necessary (e.g., existence of customer, format of notes)
-
-     // Check if the customer exists
-     pool.query('SELECT * FROM hotelbooking.customer WHERE c_no = $1', [c_no], (err, result) => {
-        if (err) {
-            console.error('Error checking customer:', err);
-            return res.status(500).json({ error: 'Internal Server Error' });
-        } else {
-            if (result.rows.length === 0) {
-                // If customer doesn't exist, create a new customer
+                // Insert into booking table with the generated b_ref
                 pool.query(
-                    `INSERT INTO hotelbooking.customer (c_no, c_name, c_email, c_address, c_cardtype, c_cardexp, c_cardno) 
-                    VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-                    [c_no, req.body.c_name, req.body.c_email, req.body.c_address, req.body.c_cardtype, req.body.c_cardexp, req.body.c_cardno],
+                    'INSERT INTO hotelbooking.booking (b_ref, c_no, b_cost, b_outstanding, b_notes) VALUES ($1, $2, $3, $4, $5)',
+                    [newBRef, customerId, cost, outstanding, notes],
                     (err, result) => {
                         if (err) {
-                            console.error('Error creating new customer:', err);
-                            return res.status(500).json({ error: 'Internal Server Error' });
+                            console.error('Error creating booking:', err);
+                            res.status(500).json({ error: 'Internal Server Error' });
+                        } else {
+                            // Inside the roombooking insertion block, after the room is booked successfully
+                            pool.query(
+                                'INSERT INTO hotelbooking.roombooking (r_no, b_ref, checkin, checkout) VALUES ($1, $2, $3, $4)',
+                                [r_no, newBRef, checkIn, checkOut],
+                                (err) => {
+                                    if (err) {
+                                        console.error('Error creating room booking:', err);
+                                        res.status(500).json({ error: 'Internal Server Error' });
+                                    } else {
+                                        // Update room status to 'X' for unavailable
+                                        pool.query(
+                                            'UPDATE hotelbooking.room SET r_status = $1 WHERE r_no = $2',
+                                            ['X', r_no],
+                                            (err) => {
+                                                if (err) {
+                                                    console.error('Error updating room status:', err);
+                                                    res.status(500).json({ error: 'Internal Server Error' });
+                                                } else {
+                                                    res.status(200).json({ message: 'Booking created successfully' });
+                                                }
+                                            }
+                                        );
+                                    }
+                                }
+                            );
+
                         }
                     }
                 );
             }
-            
-            // Insert the room booking record
-            pool.query(
-                `INSERT INTO hotelbooking.roombooking (r_no, b_ref, checkin, checkout) 
-                VALUES ($1, $2, $3, $4)`,
-                [r_no, b_ref, checkin, checkout],
-                (err, result) => {
-                    if (err) {
-                        console.error('Error executing query:', err);
-                        return res.status(500).json({ error: 'Internal Server Error' });
-                    } else {
-                        return res.json({ message: 'New room booking created successfully' });
-                    }
-                }
-            )
-            // Proceed to insert the booking record
-            pool.query(
-                `INSERT INTO hotelbooking.booking (b_ref, c_no, b_cost, b_outstanding, b_notes) 
-                VALUES ($1, $2, $3, $4, $5)`,
-                [b_ref, c_no, b_cost, b_outstanding, b_notes],
-                (err, result) => {
-                    if (err) {
-                        console.error('Error executing query:', err);
-                        return res.status(500).json({ error: 'Internal Server Error' });
-                    } else {
-                        return res.json({ message: 'New booking record inserted successfully' });
-                    }
-                }
-            );
-        }
-    });
+        });
+    }
 });
 
 
+// Endpoint to fetch booking details based on room number
+app.post('/api/bookingDetails', (req, res) => {
+    const { r_no } = req.body; // Assuming r_no is provided in the request body
+  
+    // Query to fetch booking details for a specific room number in the 'hotelbooking' schema
+    const query = `
+      SELECT * FROM hotelbooking.roombooking 
+      JOIN hotelbooking.booking ON hotelbooking.roombooking.b_ref = hotelbooking.booking.b_ref
+      WHERE hotelbooking.roombooking.r_no = $1
+    `;
+  
+    pool.query(query, [r_no], (err, result) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        // Assuming you'll send back the booking details found for the room number
+        const bookingDetails = result.rows; // Adjust as per your database schema
+        res.status(200).json(bookingDetails);
+      }
+    });
+  });
+  
 
+  app.put('/api/updateRoomStatus/:roomNumber', (req, res) => {
+    const roomNumber = req.params.roomNumber;
+    const newStatus = req.body.newStatus; // Assuming the new status is sent in the request body
+  
+    // Update the room status in the database
+    const query = `
+      UPDATE hotelbooking.room
+      SET r_status = $1
+      WHERE r_no = $2
+    `;
+  
+    pool.query(query, [newStatus, roomNumber], (err, result) => {
+      if (err) {
+        console.error('Error updating room status:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        res.status(200).json({ message: `Room ${roomNumber} status updated to ${newStatus}` });
+      }
+    });
+  });
+  
 
+//Dashboard
+app.get('/api/roomBookingsForCurrentWeek', async (req, res) => {
+    try {
+      const today = new Date();
+      const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()); // Start of current week (Sunday)
+      const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (6 - today.getDay())); // End of current week (Saturday)
+  
+      const startOfWeekISOString = startOfWeek.toISOString();
+      const endOfWeekISOString = endOfWeek.toISOString();
+  
+      const query = {
+        text: `SELECT rb.r_no, rb.b_ref, rb.checkin, rb.checkout 
+               FROM hotelbooking.roombooking rb 
+               WHERE rb.checkin >= $1 AND rb.checkout <= $2`,
+        values: [startOfWeekISOString, endOfWeekISOString],
+      };
+  
+      const result = await pool.query(query);
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Error fetching room bookings:', error);
+      res.status(500).json({ error: 'An error occurred while fetching room bookings' });
+    }
+  });
+  
 
 // Start the server
 const PORT = process.env.PORT || 3000;
