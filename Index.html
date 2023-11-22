@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Include Slick's CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <!-- Example of including flatpickr from CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -88,9 +89,9 @@
 </section>
 
 <!--Booking form-->
-<section id="bookingFormSection" class="py-10 bg-gray-100 hidden">
+<section id="bookingFormSection" class="py-10 bg-gray-100 hidden bg-cover bg-center" style="background-image: url('img/bookings-bg.jpg')">
   <div class="container mx-auto">
-    <div id="bookingForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div id="bookingForm" class="bg-white shadow-md rounded-lg px-8 py-6 mb-8">
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
         Name
@@ -110,6 +111,12 @@
       </label>
       <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="Enter your address">
     </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="cardNo">
+        Card Number
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardNo" type="text" placeholder="Enter card number">
+    </div>
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="cardType">
         Card Type (V/MC/A)
@@ -122,22 +129,17 @@
       </label>
       <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardExp" type="text" placeholder="Enter card expiration (MM/YY)">
     </div>
-    <div class="mb-6">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="cardNo">
-        Card Number
+    
+     <!-- Room Type Dropdown -->
+     <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="roomType">
+        Room Type
       </label>
-      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardNo" type="text" placeholder="Enter card number">
+      <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="roomType">
+        <option value="standard">Standard</option>
+        <option value="superior">Superior</option>
+      </select>
     </div>
-    <!-- Room Type Dropdown -->
-  <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="roomType">
-      Room Type
-    </label>
-    <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="roomType">
-      <option value="standard">Standard</option>
-      <option value="superior">Superior</option>
-    </select>
-  </div>
   <!-- Available Rooms Dropdown -->
   <div class="mb-4" id="availableRooms" style="display: none;">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="availableRoomsDropdown">
@@ -145,24 +147,30 @@
     </label>
     <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-h-40 overflow-y-auto text-sm" id="availableRoomsDropdown"></select>
   </div>
-  <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="checkin">
-      Check-In
-    </label>
-    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkin" type="text" placeholder="Select check-in date">
-  </div>
-  <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="checkout">
-      Check-Out
-    </label>
-    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkout" type="text" placeholder="Select check-out date">
+  <!-- Check-In and Check-Out Dates -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="checkin">
+        Check-In
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkin" type="text" placeholder="Select check-in date">
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="checkout">
+        Check-Out
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkout" type="text" placeholder="Select check-out date">
+    </div>
   </div>  
+    <!-- Phone Number -->
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
         Phone Number
       </label>
       <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="text" placeholder="Enter your phone number">
     </div>
+
+    <!-- Buttons -->
     <div class="flex items-center justify-between">
       <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="submitBooking">
         Submit
@@ -171,10 +179,8 @@
         Cancel
       </button>
     </div>
-  </form>
-</div>
-
   </div>
+</div>
 </section>
 
 
@@ -189,13 +195,14 @@
 
 <!-- Printable Booking Details Section -->
 <section id="printableBookingDetails" class="hidden">
-  <div class="container mx-auto">
-    <div id="bookingDetails" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="bookingDetails" class="bg-white shadow-md rounded-lg p-6 mb-4">
       <!-- Booking details will be dynamically added here -->
     </div>
-    <button id="printButton" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Print</button>
+    <button id="printButton" class="block w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Print</button>
   </div>
 </section>
+
 
 
 
@@ -336,69 +343,110 @@ roomTypeDropdown.addEventListener('change', () => {
     const submitBtn = document.getElementById('submitBooking');
 
     submitBtn.addEventListener('click', function () {
-      // Get values from the form
-      const nameInput = document.getElementById('name');
-      const emailInput = document.getElementById('email');
-      const addressInput = document.getElementById('address');
-      const cardType = document.getElementById('cardType').value;
-      const cardExp = document.getElementById('cardExp').value;
-      const cardNo = document.getElementById('cardNo').value;
-      const roomType = document.getElementById('roomType').value;
-      const checkin = document.getElementById('checkin').value;
-      const checkout = document.getElementById('checkout').value;
-      const phone = document.getElementById('phone').value;
       const selectedRoomNo = document.getElementById('availableRoomsDropdown').value;
 
-      const name = nameInput.value;
-      const email = emailInput.value;
-      const address = addressInput.value;
-
-      // Prepare the data to send to the server
-      const bookingData = {
-        email: email,
-        r_no: selectedRoomNo,
-        checkIn: checkin,
-        checkOut: checkout,
-        cost: 100, // Replace with appropriate cost calculation
-        outstanding: 0,
-        notes: `Phone: ${phone}`,
-        customerData: {
-          name: name,
-          address: address,
-          cardType: cardType,
-          cardExp: cardExp,
-          cardNo: cardNo,
-        },
-      };
-
-      fetch('http://localhost:3000/api/bookRoom', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bookingData),
-      })
+      fetch(`http://localhost:3000/api/roomDetails?r_no=${selectedRoomNo}`)
         .then((response) => {
           if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Failed to fetch room details');
           }
           return response.json();
         })
-        .then((data) => {
-          const successMessageSection = document.getElementById('successMessage');
-          successMessageSection.classList.remove('hidden');
+        .then((roomDetails) => {
+          const roomClass = roomDetails.roomClass
+          const classMappings = {
+            'superior double': 'sup_d',
+            'superior single': 'sup_t',
+            'standard double': 'std_d',
+            'standard single': 'std_t',
+            // Add mappings for other room types and classes as needed
+          };
 
-          // Retrieve booking details after successful booking creation
-          fetchBookingDetails(selectedRoomNo);
+          const roomRatesEndpoint = `http://localhost:3000/api/rates/${roomClass}`;
+
+          fetch(roomRatesEndpoint)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then((roomCostData) => {
+              const nameInput = document.getElementById('name');
+              const emailInput = document.getElementById('email');
+              const addressInput = document.getElementById('address');
+              const cardType = document.getElementById('cardType').value;
+              const cardExp = document.getElementById('cardExp').value;
+              const cardNo = document.getElementById('cardNo').value;
+              const checkin = document.getElementById('checkin').value;
+              const checkout = document.getElementById('checkout').value;
+              const phone = document.getElementById('phone').value;
+
+              const name = nameInput.value;
+              const email = emailInput.value;
+              const address = addressInput.value;
+
+              const roomCost = roomCostData.price; // Assuming the response has a 'price' field
+
+              // Prepare the data to send to the server with the retrieved room cost
+              const bookingData = {
+                email: email,
+                r_no: selectedRoomNo,
+                checkIn: checkin,
+                checkOut: checkout,
+                cost: roomCost, // Use the retrieved room cost
+                outstanding: 0,
+                notes: `Phone: ${phone}`,
+                customerData: {
+                  name: name,
+                  address: address,
+                  cardType: cardType,
+                  cardExp: cardExp,
+                  cardNo: cardNo,
+                },
+              };
+
+              fetch('http://localhost:3000/api/bookRoom', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData),
+              })
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  const successMessageSection = document.getElementById('successMessage');
+                  successMessageSection.classList.remove('hidden');
+
+                  // Retrieve booking details after successful booking creation
+                  fetchBookingDetails(selectedRoomNo, name, email, address);
+                })
+                .catch((error) => {
+                  console.error('There was a problem with the booking:', error);
+                  // Optionally, show an error message to the user
+                });
+            })
+            .catch((error) => {
+              console.error('Error fetching room cost:', error);
+              // Optionally, handle error scenario or show an error message
+            });
         })
         .catch((error) => {
-          console.error('There was a problem with the booking:', error);
-          // Optionally, show an error message to the user
+          console.error('Error fetching room details:', error);
+          // Optionally, handle error scenario or show an error message
         });
     });
 
     function fetchBookingDetails(roomNumber) {
       const bookingRequestData = { r_no: roomNumber };
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const address = document.getElementById('address');
 
       fetch('http://localhost:3000/api/bookingDetails', {
         method: 'POST',
@@ -419,9 +467,9 @@ roomTypeDropdown.addEventListener('change', () => {
 
           bookingDetailsSection.innerHTML = `
           <h2 class="text-2xl font-bold mb-4">Booking Details for Room ${roomNumber}</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Name:</strong> ${name.value}</p>
+          <p><strong>Email:</strong> ${email.value}</p>
+          <p><strong>Address:</strong> ${address.value}</p>
           <p><strong>Check-In:</strong> ${bookingDetails[0]?.checkin}</p>
           <p><strong>Check-Out:</strong> ${bookingDetails[0]?.checkout}</p>
           <!-- Include other relevant booking details -->
@@ -538,6 +586,28 @@ flatpickr("#checkin", {
   }
 });
 
+</script>
+
+
+
+<script>
+  document.getElementById('cardNo').addEventListener('input', function() {
+    const cardNumber = this.value.trim().replace(/\s/g, ''); // Remove spaces from input
+
+    let cardType = '';
+
+    if (/^4\d{15}$/.test(cardNumber)) {
+      cardType = 'V';
+    } else if (/^5[1-5]\d{14}$/.test(cardNumber)) {
+      cardType = 'Mc';
+    } else if (/^3[47]\d{13}$/.test(cardNumber)) {
+      cardType = 'A';
+    } else {
+      cardType = 'Unknown';
+    }
+
+    document.getElementById('cardType').value = cardType; // Set the card type input value
+  });
 </script>
 
 </body>

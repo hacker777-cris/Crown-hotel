@@ -263,7 +263,53 @@ app.get('/api/roomBookingsForCurrentWeek', async (req, res) => {
       res.status(500).json({ error: 'An error occurred while fetching room bookings' });
     }
   });
+ 
   
+// Endpoint to get rates by r_class
+app.get('/api/rates/:r_class', async (req, res) => {
+    const { r_class } = req.params;
+  
+    try {
+      // Query to retrieve rate based on r_class from the rates table
+      const query = 'SELECT * FROM hotelbooking.rates WHERE r_class = $1';
+      const result = await pool.query(query, [r_class]);
+  
+      if (result.rows.length === 0) {
+        return res.status(404).json({ error: 'Rate not found' });
+      }
+  
+      res.json(result.rows[0]); // Assuming there's only one rate per r_class
+    } catch (error) {
+      console.error('Error executing query', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+
+
+// Endpoint to get room details by room number
+// Endpoint to get room details by room number
+app.get('/api/roomDetails', async (req, res) => {
+    try {
+      const { r_no } = req.query;
+  
+      // Fetch room details based on room number from the 'room' table in the 'hotelbooking' schema
+      const query = 'SELECT r_class FROM hotelbooking.room WHERE r_no = $1';
+      const result = await pool.query(query, [r_no]);
+  
+      if (result.rows.length === 0) {
+        return res.status(404).json({ error: 'Room not found' });
+      }
+  
+      const roomClass = result.rows[0].r_class;
+  
+      // Return room details including the room type
+      res.json({ roomClass });
+    } catch (error) {
+      console.error('Error fetching room details:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
 
 // Start the server
 const PORT = process.env.PORT || 3000;
