@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Crown Hotel</title>
+    <!-- Meta tags for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Slick's CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Example of including flatpickr from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+  <!-- Include Slick's JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="scripts/index.js" defer></script>
+  
+  
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+  <nav class="bg-gray-900 text-white p-4 sticky top-0 z-50"> <!-- z-50 for higher stacking -->
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="#" class="text-xl font-bold">The Crown Hotel</a>
+      <ul class="flex space-x-4">
+        <li><a href="Index.html" class="hover:underline">Home</a></li>
+        <li><a href="bookings.html" class="hover:underline">Bookings</a></li>
+        <li><a href="contact.html" class="hover:underline">Contact Us</a></li>
+        <li><a href="facilities.html" class="hover:underline">Facilities</a></li>
+      </ul>
+    </div>
+  </nav>
+ <!-- Contact Us Section -->
+<section id="contact" class="relative py-20" style="background-image: url('img/bookings-bg.jpg');">
+    <div class="absolute inset-0 bg-black opacity-75"></div>
+    <div class="container mx-auto text-white relative z-10">
+      <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-center">Contact Us</h2>
+      <div class="flex justify-center items-center space-x-4">
+        <div class="w-full lg:w-1/2">
+          <div class="bg-gray-200 bg-opacity-90 rounded-lg shadow-md p-6">
+            <h3 class="text-2xl lg:text-3xl font-bold mb-4">Get In Touch</h3>
+            <ul class="list-disc ml-6 text-lg lg:text-xl text-gray-800">
+              <li><span class="font-bold">Phone:</span>123-456-7890</li>
+              <li><span class="font-bold">Email:</span>info@thecrownhotel.com</li>
+              <li><span class="font-bold">Address:</span> 123 Hotel Street, City, Country</li>
+            </ul>
+            <div class="flex justify-center mt-8">
+              <!-- Add social media icons/links here if available -->
+            </div>
+          </div>
+        </div>
+        <div class="hidden lg:block lg:w-1/2">
+          <!-- Consider adding an image or illustration here -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto text-center">
+      &copy; 2023 The Crown Hotel. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>

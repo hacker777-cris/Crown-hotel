@@ -1,0 +1,80 @@
+/* Resetting default margin and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navigation styles */
+nav {
+  background-color: #222;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+  color: #FFD700;
+}
+
+/* Section styles */
+section {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  section h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  
+  .py-12 {
+    background-color: #E6F6FE;
+    border-radius: 20px;
+    padding: 40px;
+  }
+  
+  .py-12::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    z-index: -1;
+  }

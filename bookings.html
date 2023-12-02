@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Crown Hotel</title>
+    <!-- Meta tags for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Slick's CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Example of including flatpickr from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+  <!-- Include Slick's JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="scripts/booking.js" defer></script>
+  
+  
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<body>
+    <!-- Navigation Bar -->
+  <nav class="bg-gray-900 text-white p-4 sticky top-0 z-50"> <!-- z-50 for higher stacking -->
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="#" class="text-xl font-bold">The Crown Hotel</a>
+      <ul class="flex space-x-4">
+        <li><a href="Index.html" class="hover:underline">Home</a></li>
+        <li><a href="bookings.html" class="hover:underline">Bookings</a></li>
+        <li><a href="contact.html" class="hover:underline">Contact Us</a></li>
+        <li><a href="facilities.html" class="hover:underline">Facilities</a></li>
+      </ul>
+    </div>
+  </nav>
+ <!-- Bookings Section -->
+<section id="bookings" class="py-10 bg-gray-100" >
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center">Available Rooms</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Standard Rooms -->
+  <div class="bg-white rounded-lg overflow-hidden shadow-lg flex flex-col justify-between">
+    <div class="p-6">
+      <h3 class="text-2xl lg:text-3xl font-bold mb-4 text-gray-800">Standard Rooms</h3>
+      <p class="text-lg lg:text-xl text-gray-600">Facilities: Standard</p>
+      <p id="std_tPrice" class="mt-4 text-gray-600">Price: </p>
+      <p id="standardSingleAvailable" class="mt-4 text-gray-600">Standard Single Rooms: 0 rooms</p>
+      <p id="standardDoubleAvailable" class="mt-2 text-gray-600">Standard Double Rooms: 0 rooms</p>
+    </div>
+    <button id="showFormStandard" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-b-lg w-full">Book Now</button>
+  </div>
+  
+  <!-- Superior Rooms -->
+  <div class="bg-white rounded-lg overflow-hidden shadow-lg flex flex-col justify-between mt-8 lg:mt-0">
+    <div class="p-6">
+      <h3 class="text-2xl lg:text-3xl font-bold mb-4 text-gray-800">Superior Rooms</h3>
+      <p class="text-lg lg:text-xl text-gray-600">Facilities: Superior</p>
+      <p id="sup_tPrice" class="mt-4 text-gray-600">Price: </p>
+      <p id="superiorSingleAvailable" class="mt-4 text-gray-600">Superior Single Rooms: 0 rooms</p>
+      <p id="superiorDoubleAvailable" class="mt-2 text-gray-600">Superior Double Rooms: 0 rooms</p>
+    </div>
+    <button id="showFormSuperior" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-b-lg w-full">Book Now</button>
+  </div>
+  </section>
+  
+  <!--Booking form-->
+  <section id="bookingFormSection" class="py-10 bg-gray-100 hidden bg-cover bg-center" style="background-image: url('img/bookings-bg.jpg')">
+    <div class="container mx-auto">
+      <div id="bookingForm" class="bg-white shadow-md rounded-lg px-8 py-6 mb-8">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+          Name
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+          Email
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
+      </div>
+      <!-- Add fields for customer's address, card type, card expiration, and card number -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+          Address
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="Enter your address">
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="cardNo">
+          Card Number
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardNo" type="text" placeholder="Enter card number">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="cardType">
+          Card Type (V/MC/A)
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardType" type="text" placeholder="Enter card type (V/MC/A)">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="cardExp">
+          Card Expiration (MM/YY)
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardExp" type="text" placeholder="Enter card expiration (MM/YY)">
+      </div>
+      
+       <!-- Room Type Dropdown -->
+       <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="roomType">
+          Room Type
+        </label>
+        <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="roomType">
+          <option value="standard">Standard</option>
+          <option value="superior">Superior</option>
+        </select>
+      </div>
+    <!-- Available Rooms Dropdown -->
+    <div class="mb-4" id="availableRooms" style="display: none;">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="availableRoomsDropdown">
+        Available Rooms
+      </label>
+      <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-h-40 overflow-y-auto text-sm" id="availableRoomsDropdown"></select>
+    </div>
+    <!-- Check-In and Check-Out Dates -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="checkin">
+          Check-In
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkin" type="text" placeholder="Select check-in date">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="checkout">
+          Check-Out
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkout" type="text" placeholder="Select check-out date">
+      </div>
+    </div>  
+      <!-- Phone Number -->
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
+          Phone Number
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="text" placeholder="Enter your phone number">
+      </div>
+  
+      <!-- Buttons -->
+      <div class="flex items-center justify-between">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="submitBooking">
+          Submit
+        </button>
+        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="cancelBooking">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  
+<!-- Success Message Section -->
+<section id="successMessage" class="py-10 bg-green-200 hidden">
+    <div class="container mx-auto">
+      <div class="bg-green-500 text-white font-bold rounded-lg shadow-lg p-8">
+        <p class="text-center text-xl">Booking created successfully!</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Printable Booking Details Section -->
+  <section id="printableBookingDetails" class="hidden">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="bookingDetails" class="bg-white shadow-md rounded-lg p-6 mb-4">
+        <!-- Booking details will be dynamically added here -->
+      </div>
+      <button id="printButton" class="block w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Print</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto text-center">
+      &copy; 2023 The Crown Hotel. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
