@@ -6,6 +6,7 @@
     <title>Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- Additional styles or custom CSS can be added here -->
     <style>
@@ -24,7 +25,7 @@
         <aside id="sidebar" class="bg-gray-800 text-gray-200 w-64 flex-shrink-0 sidebar-hidden">
             <!-- Sidebar content -->
             <div class="py-4 px-6">
-                <h2 class="text-2xl font-bold text-white">Admin Panel</h2>
+                <h2 class="text-2xl font-bold text-white">Receptionist</h2>
                 <!-- Navigation links -->
                 <ul class="mt-6">
                     <li class="mb-2">
@@ -53,7 +54,17 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>                            
-                            Rooms
+                            Room Housekeeping
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700" data-section-id="bookrooms">
+                            <!-- Rooms Icon -->
+                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>                            
+                            Book Room
                         </a>
                     </li>
                     <li class="mb-2">
@@ -103,7 +114,7 @@
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
-                    <h1 class="text-lg font-semibold">Admin Panel</h1>
+                    <h1 class="text-lg font-semibold">Receptionist</h1>
                     <div>
                         <!-- Admin profile or settings -->
                         <!-- Add your profile icon or settings here -->
@@ -180,6 +191,88 @@
                 </table>
             </section>
 
+            <!-- Booking form -->
+<section id="bookingFormSection" class="py-10 bg-gray-100 hidden bg-cover bg-center" style="background-image: url('img/bookings-bg.jpg')">
+    <div class="container mx-auto">
+        <div id="bookingForm" class="bg-white shadow-md rounded-lg px-8 py-6 mb-8">
+            <!-- Input fields for customer information -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="address">Address</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="Enter your address">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="cardNo">Card Number</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardNo" type="text" placeholder="Enter card number">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="cardType">Card Type (V/MC/A)</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardType" type="text" placeholder="Enter card type (V/MC/A)">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="cardExp">Card Expiration (MM/YY)</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardExp" type="text" placeholder="Enter card expiration (MM/YY)">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="roomType">Room Type</label>
+                <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="roomType">
+                    <option value="standard">Standard</option>
+                    <option value="superior">Superior</option>
+                </select>
+            </div>
+            <div class="mb-4" id="availableRooms" style="display: none;">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="availableRoomsDropdown">Available Rooms</label>
+                <select class="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-h-40 overflow-y-auto text-sm" id="availableRoomsDropdown"></select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="checkin">Check-In</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkin" type="text" placeholder="Select check-in date">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="checkout">Check-Out</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="checkout" type="text" placeholder="Select check-out date">
+                </div>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Phone Number</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="text" placeholder="Enter your phone number">
+            </div>
+            <!-- Buttons for form submission and cancellation -->
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="submitBooking">Submit</button>
+                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="cancelBooking">Cancel</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Success Message Section -->
+<section id="successMessage" class="py-10 bg-green-200 hidden">
+    <div class="container mx-auto">
+      <div class="bg-green-500 text-white font-bold rounded-lg shadow-lg p-8">
+        <p class="text-center text-xl">Booking created successfully!</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Printable Booking Details Section -->
+  <section id="printableBookingDetails" class="hidden">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="bookingDetails" class="bg-white shadow-md rounded-lg p-6 mb-4">
+        <!-- Booking details will be dynamically added here -->
+      </div>
+      <button id="printButton" class="block w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Print</button>
+    </div>
+  </section>
+
+
             <!-- Room Bookings Section -->
             <section class="p-6 hidden" id="roomBookingsSection">
                 <h2 class="text-xl font-semibold mb-4">Room Bookings</h2>
@@ -192,6 +285,7 @@
     </div>
 
     <script src="scripts/admin.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 
 </html>
